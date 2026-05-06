@@ -1,0 +1,30 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "SLO Dashboard",
+    "tags": ["slo"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Error Budget Burn Rate",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 24, "x": 0, "y": 0},
+        "targets": [
+          {
+            "expr": "rate(prometheus_http_requests_total{code=~\"5..\"}[5m]) / rate(prometheus_http_requests_total[5m]) * 100",
+            "legendFormat": "Burn Rate %"
+          }
+        ]
+      }
+    ],
+    "time": {"from": "now-1h", "to": "now"},
+    "timepicker": {},
+    "templating": {"list": []},
+    "annotations": {"list": []},
+    "refresh": "5s",
+    "schemaVersion": 27,
+    "version": 0,
+    "links": []
+  }
+}

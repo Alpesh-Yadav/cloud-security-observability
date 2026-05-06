@@ -1,0 +1,54 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Security Events Dashboard",
+    "tags": ["security"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Failed Authentication Rate",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+        "targets": [
+          {
+            "expr": "failed_auth_rate",
+            "legendFormat": "Rate"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "IAM Policy Changes Total",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+        "targets": [
+          {
+            "expr": "iam_policy_changes_total",
+            "legendFormat": "Changes"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Unauthorized API Calls Total",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
+        "targets": [
+          {
+            "expr": "unauthorized_api_calls_total",
+            "legendFormat": "Calls"
+          }
+        ]
+      }
+    ],
+    "time": {"from": "now-1h", "to": "now"},
+    "timepicker": {},
+    "templating": {"list": []},
+    "annotations": {"list": []},
+    "refresh": "5s",
+    "schemaVersion": 27,
+    "version": 0,
+    "links": []
+  }
+}

@@ -1,0 +1,29 @@
+groups:
+  - name: security_alerts
+    rules:
+      - alert: HighFailedAuthRate
+        expr: failed_auth_rate > 5
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High failed authentication rate"
+          description: "Failed auth rate is {{ $value }} which is above threshold"
+
+      - alert: IAMPolicySpike
+        expr: increase(iam_policy_changes_total[5m]) > 10
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Spike in IAM policy changes"
+          description: "IAM policy changes increased by {{ $value }} in 5 minutes"
+
+      - alert: UnauthorizedAPIBurst
+        expr: unauthorized_api_calls_total > 10
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Burst of unauthorized API calls"
+          description: "Unauthorized API calls total is {{ $value }}"
