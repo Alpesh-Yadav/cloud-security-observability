@@ -13,14 +13,22 @@ ENDPOINT_URL = 'http://localhost:4566'
 LABEL_KEYS = ['environment', 'region', 'source']
 LABEL_VALUES = {'environment': 'prod', 'region': 'us-east-1', 'source': 'localstack'}
 
-s3_object_count = Gauge('security_exporter_s3_object_count', 'Number of objects in S3 bucket', LABEL_KEYS)
-sqs_queue_depth = Gauge('security_exporter_sqs_queue_depth', 'Number of visible messages in SQS queue', LABEL_KEYS)
-cloudwatch_metric_count = Gauge('security_exporter_cloudwatch_metric_count', 'Count of CloudWatch metrics available from LocalStack', LABEL_KEYS)
-failed_auth_rate = Gauge('security_exporter_failed_auth_rate', 'Simulated failed authentication rate', LABEL_KEYS)
-iam_policy_changes_total = Gauge('security_exporter_iam_policy_changes_total', 'Simulated total IAM policy changes', LABEL_KEYS)
-unauthorized_api_calls_total = Gauge('security_exporter_unauthorized_api_calls_total', 'Simulated unauthorized API calls total', LABEL_KEYS)
-privilege_escalation_attempts = Gauge('security_exporter_privilege_escalation_attempts', 'Simulated privilege escalation attempts', LABEL_KEYS)
-suspicious_ip_count = Gauge('security_exporter_suspicious_ip_count', 'Simulated suspicious IP count', LABEL_KEYS)
+s3_object_count = Gauge('security_exporter_s3_object_count',
+                        'Number of objects in S3 bucket', LABEL_KEYS)
+sqs_queue_depth = Gauge('security_exporter_sqs_queue_depth',
+                        'Number of visible messages in SQS queue', LABEL_KEYS)
+cloudwatch_metric_count = Gauge('security_exporter_cloudwatch_metric_count',
+                                'Count of CloudWatch metrics available from LocalStack', LABEL_KEYS)
+failed_auth_rate = Gauge('security_exporter_failed_auth_rate',
+                         'Simulated failed authentication rate', LABEL_KEYS)
+iam_policy_changes_total = Gauge(
+    'security_exporter_iam_policy_changes_total', 'Simulated total IAM policy changes', LABEL_KEYS)
+unauthorized_api_calls_total = Gauge(
+    'security_exporter_unauthorized_api_calls_total', 'Simulated unauthorized API calls total', LABEL_KEYS)
+privilege_escalation_attempts = Gauge(
+    'security_exporter_privilege_escalation_attempts', 'Simulated privilege escalation attempts', LABEL_KEYS)
+suspicious_ip_count = Gauge('security_exporter_suspicious_ip_count',
+                            'Simulated suspicious IP count', LABEL_KEYS)
 
 
 def label_values():
@@ -46,8 +54,10 @@ def update_localstack_metrics():
     s3_object_count.labels(*label_values()).set(objects.get('KeyCount', 0))
 
     queue_url = sqs.get_queue_url(QueueName='alert-queue')['QueueUrl']
-    attrs = sqs.get_queue_attributes(QueueUrl=queue_url, AttributeNames=['ApproximateNumberOfMessagesVisible'])
-    sqs_queue_depth.labels(*label_values()).set(int(attrs['Attributes'].get('ApproximateNumberOfMessagesVisible', 0)))
+    attrs = sqs.get_queue_attributes(QueueUrl=queue_url, AttributeNames=[
+                                     'ApproximateNumberOfMessagesVisible'])
+    sqs_queue_depth.labels(
+        *label_values()).set(int(attrs['Attributes'].get('ApproximateNumberOfMessagesVisible', 0)))
 
     metrics = cw.list_metrics(Namespace='AWS/SQS')
     cloudwatch_metric_count.labels(*label_values()).set(len(metrics.get('Metrics', [])))
