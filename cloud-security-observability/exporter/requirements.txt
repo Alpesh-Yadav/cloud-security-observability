@@ -1,1 +1,3 @@
 prometheus_client
+boto3
+flask

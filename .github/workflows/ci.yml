@@ -1,0 +1,17 @@
+name: CI Pipeline
+on: [push, pull_request]
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install flake8 prometheus_client boto3
+      - name: Lint Python
+        run: flake8 cloud-security-observability/exporter/security_exporter.py --max-line-length=100
+      - name: Build Docker image
+        run: docker build -t security-exporter:test ./cloud-security-observability/exporter

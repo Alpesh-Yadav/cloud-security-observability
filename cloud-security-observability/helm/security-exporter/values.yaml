@@ -1,38 +1,11 @@
-replicaCount: 2
-
 image:
   repository: security-exporter
   tag: v1.0
-  pullPolicy: IfNotPresent
-
+replicas: 2
 port: 8000
-
 aws:
   endpoint: http://localstack:4566
-  region: us-east-1
-
 resources:
   limits:
     cpu: 100m
     memory: 128Mi
-  requests:
-    cpu: 50m
-    memory: 64Mi
-
-livenessProbe:
-  httpGet:
-    path: /metrics
-    port: 8000
-  initialDelaySeconds: 30
-  periodSeconds: 10
-
-readinessProbe:
-  httpGet:
-    path: /metrics
-    port: 8000
-  initialDelaySeconds: 10
-  periodSeconds: 5
-
-labels:
-  app: security-exporter
-  env: prod
