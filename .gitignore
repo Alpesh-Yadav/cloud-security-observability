@@ -1,0 +1,7 @@
+# Terraform
+cloud-security-observability/terraform/.terraform/
+cloud-security-observability/terraform/terraform.tfstate
+cloud-security-observability/terraform/terraform.tfstate.backup
+*.tfstate
+*.tfstate.backup
+.terraform/
