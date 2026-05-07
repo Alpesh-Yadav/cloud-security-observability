@@ -12,7 +12,7 @@
         "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
         "targets": [
           {
-            "expr": "failed_auth_rate",
+            "expr": "security_exporter_failed_auth_rate",
             "legendFormat": "Rate"
           }
         ]
@@ -24,7 +24,7 @@
         "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
         "targets": [
           {
-            "expr": "iam_policy_changes_total",
+            "expr": "security_exporter_iam_policy_changes_total",
             "legendFormat": "Changes"
           }
         ]
@@ -36,7 +36,7 @@
         "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
         "targets": [
           {
-            "expr": "unauthorized_api_calls_total",
+            "expr": "security_exporter_unauthorized_api_calls_total",
             "legendFormat": "Calls"
           }
         ]
